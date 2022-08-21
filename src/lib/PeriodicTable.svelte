@@ -99,6 +99,7 @@
     }
 
     .periodic-table--elements {
+        min-width: 900px;
         display: grid;
         gap: .2rem;
         padding: 1rem;
@@ -125,5 +126,18 @@
     }
     .periodic-table--options :global(li:before) {
         content: '';
+    }
+
+    @media screen and (max-width: 1080px){
+        .periodic-table {
+            flex-direction: column;
+        }
+    }
+
+    @media screen and (max-width: 900px){
+        .periodic-table--container {
+            max-width: 95vw;
+            overflow: scroll;
+        }
     }
 </style>
