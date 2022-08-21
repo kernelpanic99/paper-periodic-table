@@ -1,0 +1,8 @@
+.periodic-table--elements .paper-btn {
+    padding: 0.2rem;
+}
+
+.elem--cell .paper-btn {
+    font-size: 2rem;
+    padding: 1.5rem;
+}
