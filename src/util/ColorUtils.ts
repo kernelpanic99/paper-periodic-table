@@ -1,3 +1,5 @@
+import {colorModes} from "../store/TableContext";
+
 export interface RGBColor {
     r: number
     g: number
@@ -6,7 +8,7 @@ export interface RGBColor {
 
 type Color = RGBColor | string
 
-const palette = {
+export const palette = {
     red: '#bf616a',
     pink: '#E5989F',
     orange: '#d08770',
@@ -40,12 +42,38 @@ export const phasePalette = {
     'Liquid': '#81a1c1'
 }
 
+export const electronegPallete = {
+    'unknown': palette.snowWhite,
+    '0 - 1': palette.lightGreen,
+    '1 - 1.5': palette.lightYellow,
+    '1.5 - 2': palette.yellow,
+    '2 - 2.5': palette.pink,
+    '2.5 - 3': palette.orange,
+    '3 +': palette.red
+}
+
 export class ColorUtils {
+    static getElectronegColor(negativity) {
+        if (!negativity){
+            return  electronegPallete['unknown']
+        }
+
+        for (const [key, color] of Object.entries(electronegPallete)) {
+            const target = Number.parseFloat(key.substring(key.indexOf('- ') + 1))
+
+            if (negativity < target) {
+                return color
+            }
+        }
+
+        return palette.red
+    }
+
     static getGroupColor(group) {
         return groupPalette[group] || palette.snowWhite
     }
 
-    static getPhaseColor(phase){
+    static getPhaseColor(phase) {
         return phasePalette[phase] || palette.snowWhite
     }
 

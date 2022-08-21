@@ -1,8 +1,7 @@
 <script>
     import {Select, Slider} from 'spaper'
-    import {tableContext} from '../store/TableContext.ts'
+    import {colorModes, tableContext, ColorMode} from '../store/TableContext.ts'
     import {env} from '../store/environmentStore.ts'
-    import {ColorMode} from '../store/TableContext.ts'
     import {TemperatureUtils} from '../util/Temperature.ts'
 
     const {colorMode} = tableContext
@@ -16,9 +15,9 @@
 <ul class="toolbar shadow shadow-small">
     <li>
         <Select label="Color mode" bind:value={$colorMode}>
-            <option value="Cpk">Cpk</option>
-            <option value="Phase">Phase</option>
-            <option value="Group">Group</option>
+            {#each Object.entries(colorModes) as [id, mode]}
+                <option value={id}>{mode.label}</option>
+            {/each}
         </Select>
     </li>
     {#if $colorMode === ColorMode.PHASE}

@@ -1,6 +1,6 @@
 <script>
     import {Button} from 'spaper'
-    import {ColorMode, tableContext} from '../store/TableContext.ts'
+    import {ColorMode, colorModes, tableContext} from '../store/TableContext.ts'
     import {ColorUtils} from '../util/ColorUtils.ts'
     import {env} from '../store/environmentStore'
 
@@ -18,21 +18,9 @@
     let bgColor;
 
     $:if (!nonTable) {
-        if ($colorMode === ColorMode.CPK) {
-            bgColor = '#' + element.cpk_hex || '#e5e9f0';
-        } else if ($colorMode === ColorMode.PHASE) {
-            if ($temperature < element.melt) {
-                bgColor = ColorUtils.getPhaseColor('Solid')
-            } else if ($temperature < element.boil) {
-                bgColor = ColorUtils.getPhaseColor('Liquid')
-            } else {
-                bgColor = ColorUtils.getPhaseColor('Gas')
-            }
-        } else if ($colorMode === ColorMode.GROUP) {
-            bgColor = ColorUtils.getGroupColor(element.group)
-        }
+        bgColor = colorModes[$colorMode].resolveColor(element, {temperature: $temperature})
     } else {
-        bgColor = '#' + element.cpk_hex || '#e5e9f0'
+        bgColor = colorModes[ColorMode.CPK].resolveColor(element)
     }
 
     $:fgColor = ColorUtils.contrast(bgColor, '#2e3440', '#eceff4')

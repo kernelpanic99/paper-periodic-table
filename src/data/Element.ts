@@ -27,4 +27,12 @@ export interface Element {
     electronegativity_pauling: number;
     ionization_energies: number[];
     cpk_hex: string;
+    atomicRadius: number;
+    ionRadius: string;
+    vanDerWaalsRadius: number;
+    oxidationStates: string;
+    bondingType: string;
+    group: string;
+    yearDiscovered: number;
+    table_block: string;
 }

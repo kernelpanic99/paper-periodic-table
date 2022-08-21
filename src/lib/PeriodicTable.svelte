@@ -1,13 +1,14 @@
 <script>
+    import {Checkbox} from "spaper";
+
     import table from '../data/periodic-table.json'
     import PeriodicCell from './PeriodicCell.svelte'
     import ElementModal from './ElementModal.svelte'
     import Toolbar from './Toolbar.svelte'
     import Legend from './Legend.svelte'
 
-    import {groupPalette, phasePalette} from '../util/ColorUtils.ts'
+    import {groupPalette, phasePalette, electronegPallete} from '../util/ColorUtils.ts'
     import {tableContext, ColorMode} from '../store/TableContext.ts'
-    import {Checkbox} from "spaper";
 
     const numPeriods = 10
     const numGroups = 18
@@ -75,6 +76,8 @@
                 <Legend paletteItems={groupPalette}/>
             {:else if $colorMode === ColorMode.PHASE}
                 <Legend paletteItems={phasePalette}/>
+            {:else if $colorMode === ColorMode.ELECTRONEG}
+                <Legend paletteItems={electronegPallete}/>
             {/if}
 
             {#each table as elem}
@@ -124,17 +127,18 @@
     .periodic-table--options :global(input) {
         display: inline-block;
     }
+
     .periodic-table--options :global(li:before) {
         content: '';
     }
 
-    @media screen and (max-width: 1080px){
+    @media screen and (max-width: 1080px) {
         .periodic-table {
             flex-direction: column;
         }
     }
 
-    @media screen and (max-width: 900px){
+    @media screen and (max-width: 900px) {
         .periodic-table--container {
             max-width: 95vw;
             overflow: scroll;
