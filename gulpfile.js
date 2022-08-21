@@ -47,8 +47,8 @@ export function mergeData(cb) {
         elem.cpk_hex = elem['cpk-hex']
         elem['cpk-hex'] = undefined
 
-        elem.melt = unknownOr(apiElem.meltingPoint, elem.melt)
-        elem.boil = unknownOr(apiElem.boilingPoint, elem.boil)
+        elem.melt = elem.melt || unknownOr(apiElem.meltingPoint, elem.melt)
+        elem.boil = elem.boil || unknownOr(apiElem.boilingPoint, elem.boil)
 
         Object.assign(elem, {
             atomicRadius: apiElem.atomicRadius,
@@ -57,7 +57,7 @@ export function mergeData(cb) {
             oxidationStates: apiElem.oxidationStates,
             bondingType: apiElem.bondingType,
             group: apiElem.groupBlock,
-            yearDiscovered: 1774,
+            yearDiscovered: apiElem.yearDiscovered,
             table_block: apiElem.block,
         })
     }
